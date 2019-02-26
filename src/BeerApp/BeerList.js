@@ -6,7 +6,8 @@ import MyPaper from './MyPaper';
 class BeerList extends React.Component {
     state = {
         isLoadingBeerList: false,
-        beerList: null
+        beerList: null,
+        default: 'Please wait'
     }
 
     componentDidMount() {
