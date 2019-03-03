@@ -18,23 +18,15 @@ const BrewerList = (props) => {
             backgroundColor: 'blue'
         }
     }
-    console.log(props.beerList)
+
+
     return (
         <div
             style={styles.container}
         >
             <div style={styles.column} className='left-brewer-list'>
                 {
-                    props.beerList ?
-                    
-                    props.beerList.map(el =>(
-                        <ListItem 
-                            key={el.product_id}
-                            brewer={el.brewer}
-                        />
-                    ))
-                    :
-                    props.default
+                    'bla bla'
                 }
             </div>
             <div style={styles.column} className='center-brawer-list'>center list test</div>
