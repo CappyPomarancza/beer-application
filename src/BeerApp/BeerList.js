@@ -1,15 +1,17 @@
 import React from 'react'
-import BrewerList from './BrewerList';
-import Loading from './Loading';
-import MyPaper from './MyPaper';
+import BrewerList from './BrewerList'
+import Loading from './Loading'
+import MyPaper from './MyPaper'
 import Beer from './Beer'
 import List from '@material-ui/core/List'
+import Button from '@material-ui/core/Button'
 
 class BeerList extends React.Component {
     state = {
         isLoadingBeerList: false,
         beerData: null,
-        default: 'Please wait'
+        default: 'Please wait',
+        numberOfLoadedData: 15
     }
 
     componentDidMount() {
@@ -25,6 +27,11 @@ class BeerList extends React.Component {
             )
         this.setState({
             isLoadingBeerList: false,
+        })
+    }
+    loadMore = () => {
+        this.setState({
+            numberOfLoadedData: this.state.numberOfLoadedData + 15
         })
     }
 
@@ -47,23 +54,24 @@ class BeerList extends React.Component {
             this.state.beerData
             &&
             this.state.beerData
-            .map(el =>(
-     
-                el
-            
-            ))
+                .map(el => (
+                    el
+                ))
         )
+        console.log(beerList)
         const mapedBeerList = (
             beerList
             &&
-            beerList.map(el =>(
-                <Beer 
-                    beer={el}
-                    key={el.product_id}
-                />
-            ) )
+            beerList
+                .filter((el, index, arr) => index < this.state.numberOfLoadedData)
+                .map((el, i, arr) => (
+                    <Beer
+                        beer={el}
+                        key={el.product_id}
+                    />
+                ))
         )
-        console.log(beerList)
+        console.log(mapedBeerList)
 
         return (
             <MyPaper>
@@ -72,9 +80,20 @@ class BeerList extends React.Component {
                         <Loading />
                         :
                         <List>
-                        {mapedBeerList}
+                            {mapedBeerList}
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={this.loadMore}
+                            >
+                                Load more
+                        </Button>
                         </List>
+
+
+
                 }
+
             </MyPaper>
         )
     }
