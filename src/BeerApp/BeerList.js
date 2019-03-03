@@ -89,11 +89,7 @@ class BeerList extends React.Component {
                                 Load more
                         </Button>
                         </List>
-
-
-
                 }
-
             </MyPaper>
         )
     }
