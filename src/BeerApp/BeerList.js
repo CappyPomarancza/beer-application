@@ -5,6 +5,7 @@ import MyPaper from './MyPaper'
 import Beer from './Beer'
 import List from '@material-ui/core/List'
 import Button from '@material-ui/core/Button'
+import Brewer from './Brewer';
 
 class BeerList extends React.Component {
     state = {
@@ -38,8 +39,7 @@ class BeerList extends React.Component {
     render() {
         const styles = {
             container: {
-                display: 'flex',
-                backgroundColor: 'lightBlue'
+                display: 'flex'
             },
             column: {
                 marginLeft: '10px',
@@ -71,10 +71,30 @@ class BeerList extends React.Component {
                     />
                 ))
         )
-        console.log(mapedBeerList)
+        const mapedBrewerList = (
+            this.state.beerData
+            &&
+            this.state.beerData
+                .map((el, i) => (
+                    <Brewer
+                        brewer={el.brewer}
+                        key={i}
+                    />
+                ))
+        )
 
+        console.log(mapedBrewerList)
         return (
             <MyPaper>
+                <div className='container' style={styles.container}>
+                    <div className='brewerList' style={styles.column}>
+                        <List>
+                            {mapedBrewerList}
+                        </List>
+                    </div>
+                    <div className='brewerList' style={styles.column}></div>
+                    <div className='brewerList' style={styles.column}></div>
+                </div>
                 {
                     this.state.isLoadingBeerList ?
                         <Loading />
