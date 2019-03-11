@@ -15,6 +15,7 @@ const Beer = (props) => {
             <ListItemText>
                 {props.beer.name}
             </ListItemText>
+            {/* <img src={props.beer.image_url} /> */}
         </ListItem>
     )
 }

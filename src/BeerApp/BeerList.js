@@ -6,6 +6,7 @@ import Beer from './Beer'
 import List from '@material-ui/core/List'
 import Button from '@material-ui/core/Button'
 import Brewer from './Brewer';
+import { ListItem } from '@material-ui/core';
 
 class BeerList extends React.Component {
     state = {
@@ -39,12 +40,14 @@ class BeerList extends React.Component {
     render() {
         const styles = {
             container: {
-                display: 'flex'
+                display: 'flex',
+                maxHeight: '300px'
             },
             column: {
                 marginLeft: '10px',
                 width: '30%',
                 height: '200px',
+                maxHeight: '300px',
                 backgroundColor: 'yellow'
             }
         }
@@ -58,7 +61,6 @@ class BeerList extends React.Component {
                     el
                 ))
         )
-        console.log(beerList)
         const mapedBeerList = (
             beerList
             &&
@@ -71,29 +73,46 @@ class BeerList extends React.Component {
                     />
                 ))
         )
+        
+        
         const mapedBrewerList = (
             this.state.beerData
             &&
             this.state.beerData
                 .map((el, i) => (
-                    <Brewer
-                        brewer={el.brewer}
-                        key={i}
-                    />
+                    el.brewer
                 ))
         )
 
-        console.log(mapedBrewerList)
+        const brewerList = (
+            [...new Set(mapedBrewerList)]
+            &&
+            [...new Set(mapedBrewerList)]
+            .map((el,i,arr)=>(
+                <Brewer 
+                brewer={el}
+                />
+            ))
+        )
+        
+        console.log(brewerList)
         return (
             <MyPaper>
                 <div className='container' style={styles.container}>
                     <div className='brewerList' style={styles.column}>
                         <List>
-                            {mapedBrewerList}
                         </List>
                     </div>
-                    <div className='brewerList' style={styles.column}></div>
-                    <div className='brewerList' style={styles.column}></div>
+                    <div className='brewerList' style={styles.column}>
+                        <List>
+
+                        </List>
+                    </div>
+                    <div className='brewerList' style={styles.column}>
+                        <List>
+                            {brewerList}
+                        </List>
+                    </div>
                 </div>
                 {
                     this.state.isLoadingBeerList ?

@@ -16,7 +16,7 @@ function SimpleAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" color="default">
+      <AppBar position="fixed" color="primary">
         <Toolbar>
           <Typography textAlign='center' variant="h6" color="inherit">
             Beer App
