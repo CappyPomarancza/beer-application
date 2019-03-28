@@ -13,7 +13,8 @@ class BeerList extends React.Component {
         isLoadingBeerList: false,
         beerData: null,
         default: 'Please wait',
-        numberOfLoadedData: 15
+        numberOfLoadedBeer: 15,
+        numberOfLoadedBrewer: 10
     }
 
     componentDidMount() {
@@ -31,9 +32,14 @@ class BeerList extends React.Component {
             isLoadingBeerList: false,
         })
     }
-    loadMore = () => {
+    loadMoreBeer = () => {
         this.setState({
-            numberOfLoadedData: this.state.numberOfLoadedData + 15
+            numberOfLoadedBeer: this.state.numberOfLoadedBeer + 15
+        })
+    }
+    loadMoreBrewer = () => {
+        this.setState({
+            numberOfLoadedBrewer: this.state.numberOfLoadedBrewer + 10
         })
     }
 
@@ -45,10 +51,11 @@ class BeerList extends React.Component {
             },
             column: {
                 marginLeft: '10px',
-                width: '30%',
-                height: '200px',
-                maxHeight: '300px',
-                backgroundColor: 'yellow'
+                width: '70%',
+                maxWidth: 360,
+                position: 'relative',
+                overflow: 'auto',
+                maxHeight: 300,
             }
         }
         console.log(this.state.beerData)
@@ -65,7 +72,7 @@ class BeerList extends React.Component {
             beerList
             &&
             beerList
-                .filter((el, index, arr) => index < this.state.numberOfLoadedData)
+                .filter((el, index, arr) => index < this.state.numberOfLoadedBeer)
                 .map((el, i, arr) => (
                     <Beer
                         beer={el}
@@ -73,8 +80,7 @@ class BeerList extends React.Component {
                     />
                 ))
         )
-        
-        
+
         const mapedBrewerList = (
             this.state.beerData
             &&
@@ -84,33 +90,30 @@ class BeerList extends React.Component {
                 ))
         )
 
-        const brewerList = (
-            [...new Set(mapedBrewerList)]
-            &&
-            [...new Set(mapedBrewerList)]
-            .map((el,i,arr)=>(
-                <Brewer 
-                brewer={el}
-                />
-            ))
-        )
-        
-        console.log(brewerList)
         return (
             <MyPaper>
                 <div className='container' style={styles.container}>
                     <div className='brewerList' style={styles.column}>
                         <List>
-                        </List>
-                    </div>
-                    <div className='brewerList' style={styles.column}>
-                        <List>
-
-                        </List>
-                    </div>
-                    <div className='brewerList' style={styles.column}>
-                        <List>
-                            {brewerList}
+                            {[...new Set(mapedBrewerList)]
+                                &&
+                                [...new Set(mapedBrewerList)]
+                                .filter((el, index, arr) => index < this.state.numberOfLoadedBrewer)
+                                    .map((el, i, arr) => (
+                                        <ListItem>
+                                            <Brewer
+                                                brewer={el}
+                                            />
+                                        </ListItem>
+                                    ))
+                            }
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={this.loadMoreBrewer}
+                            >
+                                Load more beer
+                        </Button>
                         </List>
                     </div>
                 </div>
@@ -123,9 +126,9 @@ class BeerList extends React.Component {
                             <Button
                                 variant='contained'
                                 color='primary'
-                                onClick={this.loadMore}
+                                onClick={this.loadMoreBeer}
                             >
-                                Load more
+                                Load more beer
                         </Button>
                         </List>
                 }
